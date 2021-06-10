@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-   
+      <Navbar/>
     <!-- <div class=" is-flex-grow-1 has-background-light"> -->
     <main class="app-content">
       <Nuxt />

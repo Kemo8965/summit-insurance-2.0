@@ -80,7 +80,7 @@
       </template>
     
     </b-table>
-     <b-button class="btn" @click="$router.push('/')" type="is-success is-medium">Back</b-button>
+     <b-button class="btn" @click="back" type="is-success is-medium">Back</b-button>
   </div>
 </template>
 
@@ -103,7 +103,33 @@ export default {
       sortIconSize: 'is-small',
     }
   },
+  methods:{
 
+    back(){
+      this.$router.push('/')
+    },
+
+     addNewClient() {
+      this.$buefy.modal.open({
+        parent: this,
+        component: AddIndividualClientModal,
+        hasModalCard: true,
+        trapFocus: true,
+        canCancel: ['x'],
+        destroyOnHide: true,
+        customClass: '',
+        width: '1200px',
+        onCancel: () => {
+          this.$buefy.toast.open({
+            message: `Client addition cancelled!`,
+            duration: 5000,
+            position: 'is-top',
+            type: 'is-info',
+          })
+        },
+      })
+    },
+  }
 
   // async created() {
   //   await this.load()

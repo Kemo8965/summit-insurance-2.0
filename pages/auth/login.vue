@@ -1,7 +1,7 @@
 <template>
    <div class="grid is-full-height ">
        <div class="card form-card">
-       <h1 class="is-center"> Summit Insurance</h1>
+       
         <b-field label="Email"
             type=""
             class="email"
@@ -28,6 +28,10 @@
 
         <b-button @click="openLoading" class="is-info sign-in">Sign In</b-button>
         <b-loading :is-full-page="isFullPage" v-model="isLoading" :can-cancel="true"></b-loading>
+        <br>
+        <p class="register">Not registered? Sign up <nuxt-link to="/auth/register">here</nuxt-link></p>
+        <br>
+
     </div>
    </div>
 </template>
@@ -51,14 +55,17 @@
                 this.$router.push('/')
             
         }
-        
+         
     }
     }
 </script>
 
 <style scoped>
+.register{
+    padding-left: 5rem;
+}
 .sign-in{
-    left:4rem;
+    left:5rem;
     bottom: 1rem;
 }
 .grid {
@@ -78,7 +85,7 @@
 }
 
 .form-card {
-     top: 10rem;
+     top: 5rem;
   grid-row: 2/3;
   grid-column: 2/3;
   background-color: blanchedalmond;

@@ -5,7 +5,8 @@
         <nuxt-link :to="{ path: '/' }">
           <img
             class="img"
-            src="@/assets/buefy.png"
+            src="../../assets/images/summit.jpg"
+            
             alt="Summit Insurance"
           />
         </nuxt-link>
@@ -88,24 +89,24 @@ export default {
         {
           label: 'Actions',
           items: [
-            { icon: 'account', itemLabel: 'Manage Clients', link: '/clients' },
+            { icon: 'account', itemLabel: 'Manage Clients', link: '/clients/clients' },
             {
               icon: 'shield-car',
               itemLabel: 'Policies',
-              link: '/policies',
+              link: '/policies/policies',
             },
           ],
         },
         {
           label: 'Finances',
           items: [
-            { icon: 'receipt', itemLabel: 'Receipts', link: '/receipts' },
+            { icon: 'receipt', itemLabel: 'Receipts', link: '/receipts/receipts' },
           ],
         },
         {
           label: 'Reports',
           items: [
-            { icon: 'file-chart', itemLabel: 'Reports', link: '/reports' },
+            { icon: 'file-chart', itemLabel: 'Reports', link: '/reports/reports' },
           ],
         },
       ],

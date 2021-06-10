@@ -7,8 +7,8 @@
       />"
     </h2>
     <h3 class="subtitle is-6 has-text-grey">
-      Author: <a href="https://github.com/anteriovieira">
-        Antério Vieira
+      Author: <a href="https://github.com/Kemo8965">
+        Kondwani Mwale
       </a>
     </h3>
   </section>
