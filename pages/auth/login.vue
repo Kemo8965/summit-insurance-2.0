@@ -1,102 +1,166 @@
 <template>
-   <div class="grid is-full-height ">
-       <div class="card form-card">
-       
-        <b-field label="Email"
-            type=""
-            class="email"
-           
-           >
-            <b-input type="email"
-                value=""
-                maxlength="30"
-                placeholder="example123@gmail.com">
-            </b-input>
-        </b-field>
+  <div class="grid is-full-height pt-5">
+    <div class="card-1 form-card-1">
+      <FormulateForm
+        #default="{ isLoading }"
+        v-model="form"
+        :class="['card-content']"
+        @submit="loginUser"
+      >
+        <h1 class="header center my-4">
+          <span class="is-blue">S</span>ummit
+          <span class="is-blue">I</span>nsurance
+          <span class="is-blue">B</span>rokers .
+        </h1>
 
-      
+        <FormulateInput
+          type="email"
+          name="email"
+          label="Email"
+          validation="bail|required|email"
+          data-has-icons-left
+          class="email is-full-width"
+        >
+          <template #suffix>
+            <span class="icon is-left">
+              <i class="mdi mdi-account"></i>
+            </span>
+          </template>
+        </FormulateInput>
 
-        <b-field label="Password"
-            type=""
-            
-            class="pass"
-          >
-            <b-input value="" type="password" maxlength="30" placeholder="pA55W0rd1234"></b-input>
-        </b-field>
+        <FormulateInput
+          type="password"
+          name="password"
+          label="Password"
+          validation="required"
+          data-has-icons-left
+          class="password is-full-width"
+        >
+          <template #suffix>
+            <span class="icon is-left">
+              <i class="mdi mdi-key"></i>
+            </span>
+          </template>
+        </FormulateInput>
 
-       
-
-        <b-button @click="openLoading" class="is-info sign-in">Sign In</b-button>
-        <b-loading :is-full-page="isFullPage" v-model="isLoading" :can-cancel="true"></b-loading>
-        <br>
-        <p class="register">Not registered? Sign up <nuxt-link to="/auth/register">here</nuxt-link></p>
-        <br>
-
+        <b-button
+          class="mt-4"
+          expanded
+          type="is-info"
+          tag="input"
+          native-type="submit"
+          value="Login"
+        />
+        <b-loading :active="isLoading" is-full-page></b-loading>
+        <p>
+          Not Registered? Sign up
+          <nuxt-link to="/auth/register">here</nuxt-link>
+        </p>
+      </FormulateForm>
     </div>
-   </div>
+
+    <div class="card form-card-2"></div>
+
+    <div></div>
+  </div>
 </template>
-        
 
 <script>
-    export default {
-        data() {
-            return {
-                hasError: true,
-                isLoading: false,
-                isFullPage: true
-            }
-        },
-        methods: {
-            openLoading() {
-                this.isLoading = true
-                setTimeout(() => {
-                    this.isLoading = false
-                }, 10 * 1000)
-                this.$router.push('/')
+export default {
+
+   auth: 'guest',
+  data() {
+    return {
+      form: {
+        email: '',
+        password: '',
+      },
+      hasError: true,
+      isLoading: false,
+      isFullPage: true,
+    }
+  },
+  methods: {
+    async loginUser() {
+      try {
+        const { data: response } = await this.$auth
+          .loginWith('local', {
+            data: this.form 
+          })
+          .then(() => this.$buefy.toast.open({
+            message:'Logged In!',
+            position:'is-bottom',
+            type:'is-success'}));
+
+        
             
-        }
-         
-    }
-    }
+        this.$buefy.toast.open({
+          duration: 5000,
+          message: 'Welcome back!',
+          position: 'is-top',
+          type: 'is-success',
+        })
+
+        this.$router.push({ path: '/' })
+      } catch (error) {
+        this.form.password = null
+        const message = error.response
+          ? error.response.data.message
+          : error.message
+        this.$buefy.toast.open({
+          duration: 5000,
+          message: 'Please check your details again!',
+          position: 'is-top',
+          type: 'is-danger',
+        })
+      }
+    },
+  },
+}
 </script>
 
-<style scoped>
-.register{
-    padding-left: 5rem;
+<style>
+.center {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: 600;
 }
-.sign-in{
-    left:5rem;
-    bottom: 1rem;
+.is-blue {
+  color: rgb(59, 115, 218);
+}
+.register {
+  padding-left: 5rem;
+}
+
+.email {
+  width: 90%;
+}
+
+.password {
+  width: 90%;
 }
 .grid {
-   
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   display: grid;
   grid-template-rows: 1fr minmax(min-content, auto) 1fr;
-  grid-template-columns: 1fr minmax(min-content, auto)1fr;
-  
-}
-.email{
-    padding:1rem;
-    width:400px;
+  grid-template-columns: 1fr minmax(min-content, auto) 1fr;
 }
 
-.pass{
-    padding:1rem;
-}
-
-.form-card {
-     top: 5rem;
+.form-card-1 {
   grid-row: 2/3;
-  grid-column: 2/3;
-  background-color: blanchedalmond;
-  
-  
+  grid-column: 1/3;
+  background-color: rgb(238, 239, 245);
 }
-.input{
-    width: 100%;
+
+.card-content {
+  padding-top: 11rem;
 }
-.is-center{
-    padding-left: 4rem;
-    font-size: 2rem;
+
+.form-card-2 {
+  height: 92vh;
+  grid-row: 2/3;
+  grid-column: 3/3;
+  background: url('../../assets/images/office2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 </style>

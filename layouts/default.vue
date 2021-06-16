@@ -1,6 +1,12 @@
 <template>
   <div class="app-container">
-      <Navbar/>
+
+    <div 
+    v-if="$auth.loggedIn">
+     <Navbar/>
+    </div>
+
+      
     <!-- <div class=" is-flex-grow-1 has-background-light"> -->
     <main class="app-content">
       <Nuxt />

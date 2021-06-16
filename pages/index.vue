@@ -20,11 +20,23 @@
               type="is-danger is-inverted"
               icon-right="logout"
               size="is-large"
-              @click="$router.push('/auth/login')"
+              @click="endSession"
               >Log Out</b-button
             >
           </b-field>
         </div>
+
+         <b-menu-list :key="this.$auth.user" type="is-success" size="is-medium">
+          <div class="welcome">
+            <h3>Welcome,</h3>
+            <br />
+            <div class="names">
+              {{ this.$auth.user.name }}
+              {{ this.$auth.user.email }} <br />
+            </div>
+          </div>
+        </b-menu-list>
+
       </div>
     </div>
   </div>
