@@ -32,7 +32,7 @@
             <br />
             <div class="names">
               {{ this.$auth.user.name }}
-              {{ this.$auth.user.email }} <br />
+             
             </div>
           </div>
         </b-menu-list>
@@ -73,8 +73,12 @@ export default {
           name: 'Manage Reports',
           path: '/reports/reports',
         },
+
+        
         
       ],
+
+       isLoading: false,
     }
   },
 
@@ -90,7 +94,9 @@ export default {
         type: 'is-warning',
         hasIcon: true,
         onConfirm: async () => {
+          
           await this.$auth.logout()
+           
           this.$buefy.toast.open({
             duration: 5000,
             message: 'Until next time, see you!',
@@ -98,6 +104,7 @@ export default {
             type: 'is-info',
           })
           this.$router.push({ path: '/auth/login' })
+          
         },
       })
     },

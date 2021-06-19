@@ -8,18 +8,19 @@
         @submit="loginUser"
       >
         <h1 class="header center my-4">
-          <span class="is-blue">S</span>ummit
-          <span class="is-blue">I</span>nsurance
+          <span class="is-blue">S</span>ummit <br>
+          <span class="is-blue">I</span>nsurance <br>
           <span class="is-blue">B</span>rokers .
         </h1>
-
-        <FormulateInput
+        <div >
+             <FormulateInput
           type="email"
           name="email"
+          class="email "
           label="Email"
           validation="bail|required|email"
           data-has-icons-left
-          class="email is-full-width"
+          
         >
           <template #suffix>
             <span class="icon is-left">
@@ -27,7 +28,10 @@
             </span>
           </template>
         </FormulateInput>
+        </div>
+       
 
+      
         <FormulateInput
           type="password"
           name="password"
@@ -52,10 +56,13 @@
           value="Login"
         />
         <b-loading :active="isLoading" is-full-page></b-loading>
+      <!--
         <p>
           Not Registered? Sign up
           <nuxt-link to="/auth/register">here</nuxt-link>
         </p>
+
+        -->
       </FormulateForm>
     </div>
 
@@ -88,7 +95,7 @@ export default {
             data: this.form 
           })
           .then(() => this.$buefy.toast.open({
-            message:'Logged In!',
+            message:'Logged In!' ,
             position:'is-bottom',
             type:'is-success'}));
 
@@ -119,20 +126,31 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+.formulate-input::v-deep .email {
+  background-color: red;
+}
+
+.header{
+  font-size: 4rem;
+  color: gray;
+}
+
 .center {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-weight: 600;
 }
 .is-blue {
-  color: rgb(59, 115, 218);
+  color: rgb(71, 113, 190);
 }
 .register {
   padding-left: 5rem;
 }
 
 .email {
-  width: 90%;
+  width: 100%;
+  border-radius: 30%;
 }
 
 .password {
@@ -148,11 +166,13 @@ export default {
 .form-card-1 {
   grid-row: 2/3;
   grid-column: 1/3;
+  width: 100%;
   background-color: rgb(238, 239, 245);
 }
 
 .card-content {
-  padding-top: 11rem;
+  padding-top: 1rem;
+  width: auto;
 }
 
 .form-card-2 {

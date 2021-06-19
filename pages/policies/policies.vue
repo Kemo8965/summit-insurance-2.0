@@ -1,25 +1,25 @@
 <template>
     <div>
        <b-tabs class="policy" type="is-toggle" expanded>
-        <b-tab-item  label="Create New Policy" icon="google-photos">
+        <b-tab-item  label="Create New Debit Binder" icon="mail">
           <card></card>
         </b-tab-item>
-        <b-tab-item label="Policies" icon="library-music">
-            <policies-table></policies-table>
+        <b-tab-item label="Policies" icon="book">
+            <inactive-policies-table></inactive-policies-table>
         </b-tab-item>
        
     </b-tabs>
-     <b-button class="btn" @click="$router.push('/')" type="is-success is-medium">Back</b-button>
+     
     </div>
 </template>
 
 <script>
     import Card from '../../components/Card.vue'
-    import PoliciesTable from '../../components/tables/policies-table.vue'
+    import InactivePoliciesTable from '../../components/tables/inactive-policies-table.vue'
     export default {
         components:{
             Card,
-            PoliciesTable
+            InactivePoliciesTable
         }
     }
 </script>

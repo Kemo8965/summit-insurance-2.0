@@ -38,12 +38,23 @@
     >
       <b-table-column
         v-slot="props"
-        field="policyNumber"
-        label="Policy ID"
+        field="clientID"
+        label="Client"
         sortable
       >
-        {{ props.row.policyNumber }}
+        {{ props.row.clientID }}
       </b-table-column>
+
+      <b-table-column
+        v-slot="props"
+        field="coverType"
+        label="Cover Type"
+        sortable
+      >
+        {{ props.row.coverType }}
+      </b-table-column>
+      
+      
 
       <b-table-column
         v-slot="props"
@@ -51,56 +62,51 @@
         label="Start Date"
         sortable
       >
-        {{ props.row.startDate | luxon }}
+        {{ props.row.startDate }}
       </b-table-column>
 
-      <b-table-column v-slot="props" field="endDate" label="End Date" sortable>
-        {{ props.row.endDate | luxon }}
+      <b-table-column 
+      v-slot="props" 
+      field="endDate" 
+      label="End Date"
+       sortable
+       >
+        {{ props.row.endDate }}
       </b-table-column>
 
       <b-table-column
         v-slot="props"
-        field="nameOfInsured"
-        label="Client"
+        field="sumInsured"
+        label="Sum Insured"
         sortable
-        searchable
+        
       >
-        {{ props.row.nameOfInsured }}
+        {{ props.row.sumInsured }}
       </b-table-column>
 
       <b-table-column
         v-slot="props"
-        field="netPremium"
+        field="proRata"
+        label="Pro-Rata"
+        sortable
+      >
+        {{ props.row.proRata }}
+      </b-table-column>
+
+      
+
+
+     <b-table-column
+        v-slot="props"
+        field="totalPremium"
         label="Net Premium"
         sortable
         searchable
+        @input="restrictDecimal"
       >
-        {{ currencyValue(props.row, 'netPremium') }}
+        {{ currencyValue(props.row, 'totalPremium') }}
       </b-table-column>
-
-      <b-table-column
-        v-slot="props"
-        field="status"
-        label="Policy Status"
-        sortable
-      >
-        <span
-          :class="[
-            'tag',
-            {
-              'is-success': props.row.status === 'Active',
-            },
-            {
-              'is-warning': props.row.status === 'Inactive',
-            },
-          ]"
-          >{{ props.row.status }}</span
-        >
-      </b-table-column>
-
-      <b-table-column v-slot="props" field="status" label="Status" sortable>
-        <span class="tag is-warning">{{ props.row.receiptStatus }}</span>
-      </b-table-column>
+      
 
       <b-table-column v-slot="props" label="Options">
         <span class="buttons">
@@ -126,7 +132,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-
+import PayDebitModal from '@/components/modals/pay-debit-modal'
 export default {
   name: 'UnreceiptedDebitsTable',
 
@@ -141,7 +147,79 @@ export default {
       sortIcon: 'arrow-up',
       sortIconSize: 'is-small',
     }
+  },
+  computed: {
+    
+    ...mapGetters('policies', {
+      loading: 'loading',
+      policies: 'allPolicies',
+    }),
+    
+    isEmpty() {
+      return this.policies.length === 0
+    },
+
+    isNames() {
+      return this.names
+    },
+    
+    tableData() {
+      return this.isEmpty ? [] : this.policies
+    },
+  },
+
+  
+
+  methods: {
+   
+    ...mapActions('policies', ['getAllPolicies']),
+
+        currencyValue(policy, field) {
+      switch (policy.currency) {
+        case 'USD':
+          return this.$options.filters.currency_usd(policy[field])
+
+        default:
+          return this.$options.filters.currency(policy[field])
+      }
+    },
+
+    restrictDecimal() {
+      this.totalPremium = this.totalPremium.match(/^\d+\.?\d{0,2}/)
+    },
+
+    async load(){
+      await this.getAllPolicies();
+    },
+
+
+    captureReceipt(policy) {
+      this.selectPolicy(policy)
+      setTimeout(() => {
+        this.$buefy.modal.open({
+          parent: this,
+          component: PayDebitModal,
+          hasModalCard: true,
+          trapFocus: true,
+          canCancel: ['x'],
+          destroyOnHide: true,
+          customClass: '',
+          onCancel: () => {
+            this.$buefy.toast.open({
+              message: `Payment cancelled!`,
+              duration: 5000,
+              position: 'is-top',
+              type: 'is-info',
+            })
+          },
+        })
+      }, 300)
+    },
   }
+
+ 
+
+  
 }
 
   

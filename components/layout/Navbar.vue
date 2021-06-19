@@ -132,7 +132,7 @@ export default {
         type: 'is-primary',
         hasIcon: true,
         onConfirm: async () => {
-         // await this.$auth.logout()
+          await this.$auth.logout()
           this.$buefy.toast.open({
             duration: 5000,
             message: 'Until next time, see you!',

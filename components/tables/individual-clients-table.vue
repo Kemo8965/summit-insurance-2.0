@@ -36,10 +36,10 @@
       <b-table-column
         v-slot="props"
         field="clientID"
-        label="Client ID"
+        label="Title"
         sortable
       >
-        {{ props.row.clientID }}
+        {{ props.row.title }}
       </b-table-column>
 
       <b-table-column v-slot="props" field="name" label="Name" sortable>
@@ -80,7 +80,7 @@
       </template>
     
     </b-table>
-     <b-button class="btn" @click="back" type="is-success is-medium">Back</b-button>
+     
   </div>
 </template>
 
@@ -103,10 +103,35 @@ export default {
       sortIconSize: 'is-small',
     }
   },
-  methods:{
 
-    back(){
-      this.$router.push('/')
+  computed: {
+    ...mapGetters('clients', {
+      loading: 'loading',
+      clients: 'allClients',
+    }),
+
+    isEmpty() {
+      return this.clients.length === 0
+    },
+
+    tableData() {
+      return this.isEmpty ? [] : this.clients
+    },
+  },
+
+ 
+  methods: {
+    ...mapActions('clients', ['load']),
+
+    fullname(client) {
+      const title = client.title
+      let fullname
+      if (client.middlename) {
+        fullname = `${client.firstName} ${client.middleName} ${client.lastName}`
+      } else {
+        fullname = `${client.firstName} ${client.lastName}`
+      }
+      return _.startCase(`${title} ${fullname.toLowerCase()}`)
     },
 
      addNewClient() {

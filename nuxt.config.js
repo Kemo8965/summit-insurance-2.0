@@ -31,6 +31,14 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '@/plugins/vuelidate.js',
+    { src: '@/plugins/vue-luxon.js', mode: 'client' },
+    { src: '@/plugins/vue-currency-filter.js', mode: 'client' },
+    { src: '@/plugins/vue-lodash-filter.js', mode: 'client' },
+    { src: '@/plugins/vue-mask.js', mode: 'client' },
+    { src: '@/plugins/vue-formulate.js', mode: 'client' },
+    { src: '@/plugins/persisted-state.client.js' },
+    { src: '@/plugins/pino.js' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -105,8 +113,8 @@ export default {
         },
         endpoints: {
           login: { url: '/api/auth/login', method: 'post', propertyName:'token' },
-          logout: { url: '/api/auth/logout', method: 'get' }
-         
+          logout: { url: '/api/auth/logout', method: 'get' },
+          user:false // { url: '/api/auth/user', method: 'get' }
         }
       }
     }
