@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex'
 export default {
   name: 'Dashboard',
 
@@ -64,7 +65,7 @@ export default {
         {
           type: 'is-success is-light',
           icon: 'receipt',
-          name: 'Manage Receipts',
+          name: 'Manage Invoices',
           path: '/receipts/receipts',
         },
         {
@@ -82,9 +83,15 @@ export default {
     }
   },
 
-  computed: {},
+  computed: {
+     ...mapGetters('users', {
+      loading: 'loading',
+      User: 'currentUser',
+    }),
+  },
 
   methods: {
+     ...mapActions('users', ['getUser']),
     async endSession() {
       await this.$buefy.dialog.confirm({
         title: 'Log out',

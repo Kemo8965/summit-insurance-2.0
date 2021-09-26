@@ -85,7 +85,12 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  },
+    extend(config, {}) {
+        config.node = {
+            fs: 'empty'
+        }
+    }
+},
 
   router: {
     middleware: ['auth'],
@@ -108,8 +113,8 @@ export default {
           type: ''
         },
         user: {
-          property: 'user',
-          // autoFetch: true
+          property: false,
+          autoFetch: true
         },
         endpoints: {
           login: { url: '/api/auth/login', method: 'post', propertyName:'token' },

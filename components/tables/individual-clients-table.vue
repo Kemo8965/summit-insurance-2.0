@@ -134,6 +134,8 @@ export default {
       return _.startCase(`${title} ${fullname.toLowerCase()}`)
     },
 
+   
+
      addNewClient() {
       this.$buefy.modal.open({
         parent: this,

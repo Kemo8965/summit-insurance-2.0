@@ -73,14 +73,15 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
 
    auth: 'guest',
   data() {
     return {
       form: {
-        email: '',
-        password: '',
+        email: null,
+        password: null,
       },
       hasError: true,
       isLoading: false,
@@ -88,16 +89,24 @@ export default {
     }
   },
   methods: {
+  ...mapActions('user', ['getUser']),
     async loginUser() {
       try {
-        const { data: response } = await this.$auth
-          .loginWith('local', {
+        const { data: response } = await this.$auth.loginWith('local', {
             data: this.form 
           })
-          .then(() => this.$buefy.toast.open({
-            message:'Logged In!' ,
+          //   const user = response.data
+          console.log(response.data)
+         // this.$auth.setUser(user)
+
+          this.$buefy.toast.open({
+            message:`Logged In as ${this.$auth.user.name}!` ,
             position:'is-bottom',
-            type:'is-success'}));
+            type:'is-success'})
+
+        
+       
+
 
         
             
@@ -107,6 +116,7 @@ export default {
           position: 'is-top',
           type: 'is-success',
         })
+  
 
         this.$router.push({ path: '/' })
       } catch (error) {
@@ -179,7 +189,7 @@ export default {
   height: 92vh;
   grid-row: 2/3;
   grid-column: 3/3;
-  background: url('../../assets/images/office2.jpg');
+  background: url('../../assets/images/office.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }

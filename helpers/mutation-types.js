@@ -8,7 +8,7 @@ export const SET_AUTH_USER = 'SET_AUTH_USER'
 // USERS
 export const SET_USERS = 'SET_USERS'
 export const ADD_NEW_USER = 'ADD_NEW_USER'
-
+export const SET_CURRENT_USER = 'SET_CURRENT_USER'
 export const CACHE_USER = 'CACHE_USER'
 
 // CLIENTS
