@@ -31,7 +31,7 @@
             <h3>Welcome,</h3>
             <br />
             <div class="names">
-              {{ this.$auth.user.name }}
+              {{ this.$auth.user.email }}
              
             </div>
           </div>

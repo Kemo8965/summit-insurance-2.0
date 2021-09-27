@@ -100,7 +100,7 @@ export default {
          // this.$auth.setUser(user)
 
           this.$buefy.toast.open({
-            message:`Logged In as ${this.$auth.user.name}!` ,
+            message:`Logged In as ${this.$auth.user.email}!` ,
             position:'is-bottom',
             type:'is-success'})
 

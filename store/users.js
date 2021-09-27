@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { api } from '@/helpers/axios-instance'
 import { getField, updateField } from 'vuex-map-fields'
-import { SET_LOADING, SET_USERS, ADD_NEW_USER } from '@/helpers/mutation-types'
+import { SET_LOADING, SET_USERS, ADD_NEW_USER, SET_CURRENT_USER } from '@/helpers/mutation-types'
 // import { _ } from 'lodash'
 export const state = () => ({
     all: [],
