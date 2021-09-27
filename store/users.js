@@ -49,7 +49,7 @@ export const actions = {
         try {
             commit(SET_LOADING, true)
             const fetchUsers = await api.get(`/auth/allUsers`)
-            console.log(fetchUsers)
+            console.log(fetchUsers.data)
 
             commit(SET_USERS, fetchUsers.data)
             commit(SET_LOADING, false)

@@ -32,6 +32,9 @@
             <br />
             <div class="names">
               {{ this.$auth.user.email }}
+              
+              
+              
              
             </div>
           </div>
@@ -86,12 +89,14 @@ export default {
   computed: {
      ...mapGetters('users', {
       loading: 'loading',
-      User: 'currentUser',
+      Users: 'allUsers',
     }),
   },
 
   methods: {
-     ...mapActions('users', ['getUser']),
+     ...mapActions('users', ['getAllUsers']),
+     
+
     async endSession() {
       await this.$buefy.dialog.confirm({
         title: 'Log out',
@@ -118,3 +123,9 @@ export default {
   },
 }
 </script>
+<style>
+.names{
+  color:cornflowerblue;
+  font-size: 1.5rem;
+}
+</style>

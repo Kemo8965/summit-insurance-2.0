@@ -24,6 +24,9 @@
           class="is-hidden-desktop"
           tag="div"
         >
+
+       
+
           <b-navbar-item
             v-for="({ itemLabel, link }, key) in items"
             :key="key"

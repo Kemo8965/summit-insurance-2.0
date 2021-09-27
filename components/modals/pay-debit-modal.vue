@@ -3,7 +3,7 @@
     <form id="pay-debit" @submit.prevent="onSubmit">
       <div class="modal-card">
         <header class="modal-card-head">
-          <h3 class="modal-card-title">Capture Receipt</h3>
+          <h3 class="modal-card-title">Capture Invoice</h3>
           <button type="button" class="delete" @click="close"></button>
         </header>
         <section class="modal-card-body has-background-white">
@@ -16,7 +16,10 @@
               <b-input
                 v-model="$v.form.receivedFrom.$model"
                 placeholder="Name Surname"
-              ></b-input>
+              >
+              
+              
+              </b-input>
             </b-field>
 
             <!-- Amount -->
@@ -32,8 +35,12 @@
                 expanded
                 type="number"
                 step=".01"
-                :disabled="validAmount"
-              ></b-input>
+                :disabled= true
+                
+              >
+              {{policy.totalPremium}}
+              
+              </b-input>
             </b-field>
           </b-field>
 
@@ -41,7 +48,7 @@
             <!-- Receipt Type -->
             <b-field expanded :type="receiptTypeState">
               <template v-slot:label>
-                Receipt Type <span class="has-text-danger">*</span>
+                Invoice Type <span class="has-text-danger">*</span>
               </template>
               <b-select
                 v-model="$v.form.receiptType.$model"
@@ -105,6 +112,7 @@
           </b-field>
         </section>
         <footer class="modal-card-foot">
+          <b-button label="Reset" @click="onReset" />
           <b-button label="Cancel" @click="close" />
           <b-button
             label="Capture"
@@ -158,6 +166,7 @@ export default {
   computed: {
     ...mapGetters('policies', {
       policy: 'selectedPolicy',
+      policies:'allPolicies',
       policyLoading: 'loading',
     }),
 
@@ -288,7 +297,7 @@ export default {
   },
 
   mounted() {
-    this.form.amount = this.policy.totalPremiumDue
+    this.form.amount = this.policy.totalPremium
   },
 
   methods: {
@@ -298,8 +307,8 @@ export default {
 
     close() {
       this.$buefy.toast.open({
-        message: 'Thank you!',
-        duration: 5000,
+        message: 'Canceled.',
+        duration: 1100,
         position: 'is-top',
         type: 'is-info',
       })

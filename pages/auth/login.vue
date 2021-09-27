@@ -80,6 +80,7 @@ export default {
   data() {
     return {
       form: {
+        
         email: null,
         password: null,
       },
@@ -191,7 +192,7 @@ export default {
   height: 92vh;
   grid-row: 2/3;
   grid-column: 3/3;
-  background: url('../../assets/images/office.jpg');
+  background: url('../../assets/images/office2.jpg');
   background-repeat: no-repeat;
   background-size: cover;
 }

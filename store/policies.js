@@ -3,7 +3,8 @@ import {
     CREATE_POLICY,
     SET_ALL_POLICIES,
     GET_ALL_POLICIES,
-    SET_CLIENT_NAMES
+    SET_CLIENT_NAMES,
+    SET_SELECTED_POLICY
 } from '@/helpers/mutation-types'
 // import { DateTime } from 'luxon'
 // import currency from 'currency.js'
@@ -16,6 +17,7 @@ export const state = () => ({
     all: [],
     allPolicies:[],
     clientNames: [],
+    selectPolicy:null,
     loading: false,
     form: {
         clientID: null,
@@ -74,6 +76,10 @@ export const getters = {
     loading(state) {
         return state.loading
     },
+
+    selectedPolicy(state) {
+        return state.selectedPolicy
+      },
 }
 
 export const mutations = {
@@ -98,7 +104,10 @@ export const mutations = {
 
     [SET_ALL_POLICIES](state,payload){
         state.allPolicies= payload
-    }
+    },
+    [SET_SELECTED_POLICY](state, policy) {
+        state.selectedPolicy = policy
+      }
 }
 
 export const actions = {
@@ -187,5 +196,9 @@ export const actions = {
             throw error
         }
     },
+
+    selectPolicy({ commit }, policy) {
+        commit(SET_SELECTED_POLICY, policy)
+      },
 
 }

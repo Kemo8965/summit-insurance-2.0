@@ -81,7 +81,8 @@
         sortable
         
       >
-        {{ props.row.sumInsured }}
+       {{ currencyValue(props.row, 'sumInsured') }}
+        <!-- {{ props.row.sumInsured }} -->
       </b-table-column>
 
       <b-table-column
@@ -114,8 +115,8 @@
           <b-button
             type="is-secondary-outline"
             icon-left="cash-multiple"
-            @click="captureReceipt(props.row)"
-            >Capture Receipt</b-button
+            @click="captureInvoice(props.row)"
+            >Capture Invoice</b-button
           >
         </span>
       </b-table-column>
@@ -172,7 +173,8 @@ export default {
 
   methods: {
    
-    ...mapActions('policies', ['getAllPolicies']),
+
+    ...mapActions('policies', ['getAllPolicies','load', 'selectPolicy' ]),
 
         currencyValue(policy, field) {
       switch (policy.currency) {
@@ -193,8 +195,8 @@ export default {
     },
 
 
-    captureReceipt(policy) {
-      this.selectPolicy(policy)
+    captureInvoice(policy) {
+       this.selectPolicy(policy)
       setTimeout(() => {
         this.$buefy.modal.open({
           parent: this,
