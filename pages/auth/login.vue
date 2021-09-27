@@ -90,14 +90,16 @@ export default {
   },
   methods: {
   ...mapActions('user', ['getUser']),
-    async loginUser() {
+    async loginUser(user) {
       try {
         const { data: response } = await this.$auth.loginWith('local', {
             data: this.form 
           })
           //   const user = response.data
           console.log(response.data)
-         // this.$auth.setUser(user)
+          this.$auth.setUser(user)
+
+          
 
           this.$buefy.toast.open({
             message:`Logged In as ${this.$auth.user.email}!` ,
