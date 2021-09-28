@@ -22,6 +22,9 @@
               </b-input>
             </b-field>
 
+           
+           
+
             <!-- Amount -->
             <b-field :type="amountState">
               <template v-slot:label>
@@ -83,6 +86,25 @@
               </b-select>
             </b-field>
           </b-field>
+
+           <!-- Bill To -->
+            <b-field expanded :type="receiptTypeState">
+              <template v-slot:label>
+               Bill To <span class="has-text-danger">*</span>
+              </template>
+              <b-select
+                v-model="$v.form.billTo.$model"
+                placeholder="-- Bill to --"
+              >
+                <option
+                  v-for="(type, index) in clients"
+                  :key="index"
+                  :value="client"
+                >
+                  {{ client.name }}
+                </option>
+              </b-select>
+            </b-field>
 
           <b-field grouped>
             <!-- Narration -->
@@ -152,6 +174,7 @@ export default {
       isFullPage: true,
       form: {
         receivedFrom: null,
+        billTo: null,
         amount: null,
         receiptType: null,
         paymentMethod: null,
@@ -170,9 +193,13 @@ export default {
       policyLoading: 'loading',
     }),
 
-    ...mapGetters('receipts', {
+    ...mapGetters('clients', {
+      clients:'allClients',
+    }),
+
+    ...mapGetters('invoices', {
       receiptLoading: 'loading',
-      receiptTypes: 'receiptTypes',
+      receiptTypes: 'invoiceTypes',
       paymentMethods: 'paymentMethods',
     }),
 
@@ -192,6 +219,12 @@ export default {
           ? 'is-success'
           : 'is-danger'
         : null
+    },
+
+    billTo() {
+     
+      return this.$v.form.billTo.$dirty
+        
     },
 
     validAmount() {
@@ -277,6 +310,7 @@ export default {
           number: or(decimal, numeric),
           maxValue: maxValue(this.policy.totalPremiumDue),
         },
+        billTo: {required, name},
         receiptType: { required, name },
         paymentMethod: { required, name },
         chequeNumber: {
@@ -304,6 +338,8 @@ export default {
     ...mapActions('receipts', ['makePayment']),
 
     ...mapActions('policies', ['activatePolicy', 'postPolicyToRtsa']),
+
+    ...mapActions('clients', ['load'] ),
 
     close() {
       this.$buefy.toast.open({
