@@ -101,7 +101,7 @@
                   :key="index"
                   :value="client"
                 >
-                  {{ client.name }}
+                  {{ clients }}
                 </option>
               </b-select>
             </b-field>

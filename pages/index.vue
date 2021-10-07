@@ -28,7 +28,7 @@
 
          <b-menu-list :key="this.$auth.user" type="is-success" size="is-medium">
           <div class="welcome">
-            <h3>Welcome,</h3>
+            <h3>You are signed in as</h3>
             <br />
             <div class="names">
               {{ this.$auth.user.email }}
@@ -110,7 +110,7 @@ export default {
           await this.$auth.logout()
            
           this.$buefy.toast.open({
-            duration: 5000,
+            duration: 3000,
             message: 'Until next time, see you!',
             position: 'is-top',
             type: 'is-info',
@@ -126,6 +126,6 @@ export default {
 <style>
 .names{
   color:cornflowerblue;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 </style>

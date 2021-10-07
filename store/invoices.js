@@ -35,11 +35,15 @@ export const state = () => ({
     ],
     paymentMethods: ['Cash', 'EFT', 'Bank Transfer', 'Cheque'],
     selectedInvoice: null,
+
+    
   })
 
 
   export const getters = {
     getField,
+
+   
 
     loading(state) {
       return state.loading
@@ -98,6 +102,7 @@ export const state = () => ({
     [SET_INVOICES](state, payload) {
       state.all = payload
     },
+
   
     [SET_LOADING](state, payload) {
       state.loading = payload

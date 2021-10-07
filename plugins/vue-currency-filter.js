@@ -13,7 +13,7 @@ Vue.use(VueCurrencyFilter, [
   },
   {
     name: 'currency_usd',
-    symbol: '$',
+    symbol: 'USD',
     thousandsSeparator: ',',
     fractionCount: 2,
     fractionSeparator: '.',

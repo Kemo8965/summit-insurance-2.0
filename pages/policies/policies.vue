@@ -2,7 +2,7 @@
     <div>
        <b-tabs class="policy" type="is-toggle" expanded>
         <b-tab-item  label="Create New Debit Binder" icon="mail">
-          <card></card>
+          <create-new-debit-binder></create-new-debit-binder>
         </b-tab-item>
         <b-tab-item label="Policies" icon="book">
             <inactive-policies-table></inactive-policies-table>
@@ -14,17 +14,19 @@
 </template>
 
 <script>
-    import Card from '../../components/Card.vue'
+   // import Card from '../../components/Card.vue'
+import CreateNewDebitBinder from '../../components/forms/create-new-debit-binder.vue'
     import InactivePoliciesTable from '../../components/tables/inactive-policies-table.vue'
     export default {
         components:{
-            Card,
+            CreateNewDebitBinder,
             InactivePoliciesTable
         }
     }
 </script>
 
-<style>
+<styl,
+                CreateNewDebitBindere>
 .btn{
     left:600px;
     width: 160px ;

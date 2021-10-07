@@ -114,7 +114,7 @@ export default {
         
             
         this.$buefy.toast.open({
-          duration: 5000,
+          duration: 3000,
           message: 'Welcome back!',
           position: 'is-top',
           type: 'is-success',
@@ -128,7 +128,7 @@ export default {
           ? error.response.data.message
           : error.message
         this.$buefy.toast.open({
-          duration: 5000,
+          duration: 3000,
           message: 'Please check your details again!',
           position: 'is-top',
           type: 'is-danger',
