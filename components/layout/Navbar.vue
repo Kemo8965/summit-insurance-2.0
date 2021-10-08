@@ -18,6 +18,8 @@
         >
           Summit Insurance
         </b-navbar-item>
+
+        
         <b-navbar-item
           v-for="({ items }, index) in menuList"
           :key="index"
@@ -51,6 +53,8 @@
       fullheight
       overlay
     >
+
+    
       <b-menu class="menu" :activable="false">
         <b-menu-list
           v-for="({ label, items }, index) in menuList"
@@ -74,6 +78,19 @@
             @click="endSession"
           ></b-menu-item>
         </b-menu-list>
+
+        <b-menu-list :key="this.$auth.user" type="is-success" size="is-medium">
+          <div class="welcome">
+            <h3>You are signed in as</h3>
+            <br />
+            <div class="names">
+              {{ this.$auth.user.email }}
+                  
+            </div>
+          </div>
+        </b-menu-list>
+
+
       </b-menu>
     </b-sidebar>
   </div>
@@ -160,5 +177,14 @@ export default {
 
 .menu {
   padding: 2rem;
+}
+
+.names{
+  color:purple;
+  font-size: 1rem;
+}
+
+.welcome{
+  padding-top: 50px;
 }
 </style>
